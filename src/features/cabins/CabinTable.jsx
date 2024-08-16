@@ -54,7 +54,7 @@ export default function CabinTable() {
       </TableHeader>
       {
         /* Add cabin data here */ cabins.map((cabin) => {
-          return <CabinRow cabin={cabin} />;
+          return <CabinRow cabin={cabin} key={cabin.id}/>;
         })
       }
     </Table>
