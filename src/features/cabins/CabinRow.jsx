@@ -40,6 +40,10 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
+const handleDeleteCabin = (id) => {
+  // Delete cabin logic
+}
+
 export default function CabinRow({cabin}){
   const {name, image, price, maxCapacity, regularPrice, discount} = cabin
   return (
@@ -49,6 +53,7 @@ export default function CabinRow({cabin}){
       <div>Fits up to {maxCapacity} guests</div>
       <Price>{formatCurrency(regularPrice)}</Price>
       <Discount>{formatCurrency(discount)}</Discount>
+      <button onClick={handleDeleteCabin}>Delete</button>
     </TableRow>
   )
 }
