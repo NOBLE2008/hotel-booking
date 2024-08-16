@@ -33,7 +33,7 @@ const TableHeader = styled.header`
 export default function CabinTable() {
   const {
     isLoading,
-    data: cabin,
+    data: cabins,
     error,
   } = useQuery({
     queryKey: ["cabins"],
@@ -53,8 +53,8 @@ export default function CabinTable() {
         <p>Book</p>
       </TableHeader>
       {
-        /* Add cabin data here */ cabin.map((cabin) => {
-          <CabinRow cabin={cabin} />;
+        /* Add cabin data here */ cabins.map((cabin) => {
+          return <CabinRow cabin={cabin} />;
         })
       }
     </Table>
