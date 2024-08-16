@@ -6,3 +6,4 @@ const Heading = styled.h1`
     background-color: yellow;
 `
 
+export default Heading
