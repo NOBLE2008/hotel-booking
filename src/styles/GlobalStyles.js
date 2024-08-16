@@ -137,6 +137,10 @@ h6 {
   hyphens: auto;
 }
 
+p{
+  font-size: 2.25;
+}
+
 img {
   max-width: 100%;
 

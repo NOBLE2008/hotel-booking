@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 const Table = styled.div`
   border: 1px solid var(--color-grey-200);
-
+  width: 100%;
+  margin-top: 2rem;
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
   border-radius: 7px;
@@ -23,3 +24,19 @@ const TableHeader = styled.header`
   color: var(--color-grey-600);
   padding: 1.6rem 2.4rem;
 `;
+
+export function CabinTable(){
+  return (
+    <Table role="table">
+      <TableHeader role="row">
+        <p></p>
+        <p>Price</p>
+        <p>Occupancy</p>
+        <p>Beds</p>
+        <p>View</p>
+        <p>Book</p>
+      </TableHeader>
+      {/* Add cabin data here */}
+    </Table>
+  );
+}
