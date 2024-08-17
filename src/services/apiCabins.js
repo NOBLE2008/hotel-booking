@@ -20,3 +20,15 @@ export async function deleteCabin(id) {
 
   return data;
 }
+
+export async function createCabin(cabin) {
+  const { data, error } = await supabase
+    .from("cabins")
+    .insert([{ some_column: "someValue", other_column: "otherValue" }])
+    .select();
+  if (error) {
+    throw new Error("Cabin could not be created");
+  }
+
+  return data;
+}
