@@ -45,7 +45,6 @@ const variations = {
     &:hover {
       background-color: var(--color-brand-700);
     }
-    align-self: stretch;
 `,
   danger: css`
     color: var(--color-red-100);

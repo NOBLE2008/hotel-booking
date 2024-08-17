@@ -17,7 +17,7 @@ function Cabins() {
       <Row type={"horizontal"}>
         <CabinTable />
       </Row>
-      <Row type="horizantal">
+      <Row type="vertical">
         <Button onClick={() => {
           setIsFormOpen((cur) => {
             return !cur
@@ -25,7 +25,7 @@ function Cabins() {
         }} type="full">{isFormOpen ? "Cancel" : "Create new cabin"}</Button>
       </Row>
       {isFormOpen && (
-        <Row type="horizontal">
+        <Row type="vertical">
           <CreateCabinForm />
         </Row>
       )}
