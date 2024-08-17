@@ -66,8 +66,12 @@ function CreateCabinForm() {
   const onSubmit = (data) => {
     mutate(data);
   };
+
+  const onError = (error) => {
+    console.log(error)
+  }
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormRow>
         <Label htmlFor="name">Cabin name</Label>
         <Input
