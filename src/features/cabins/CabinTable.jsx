@@ -46,6 +46,7 @@ export default function CabinTable() {
   return (
     <Table role="table">
       <TableHeader role="row">
+        <p></p>
         <p>CABIN</p>
         <p>CAPACITY</p>
         <p>PRICE</p>

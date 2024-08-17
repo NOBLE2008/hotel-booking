@@ -72,7 +72,7 @@ export default function CabinRow({ cabin }) {
   const { name, id, image, price, maxCapacity, regularPrice, discount } = cabin;
   if (isDeleting) return <Spinner />;
   return (
-    <TableRow>
+    <TableRow role="row">
       <Img src={image} />
       <Cabin>{name}</Cabin>
       <div>Fits up to {maxCapacity} guests</div>

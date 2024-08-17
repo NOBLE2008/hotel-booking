@@ -38,6 +38,15 @@ const variations = {
       background-color: var(--color-grey-50);
     }
   `,
+  full: css`
+  color: var(--color-brand-50);
+    background-color: var(--color-brand-600);
+
+    &:hover {
+      background-color: var(--color-brand-700);
+    }
+    align-self: stretch;
+`,
   danger: css`
     color: var(--color-red-100);
     background-color: var(--color-red-700);
@@ -61,3 +70,5 @@ Button.defaultProps = {
   size: "medium",
   variation: "primary",
 }
+
+export default Button;

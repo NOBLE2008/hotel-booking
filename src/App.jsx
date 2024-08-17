@@ -9,10 +9,11 @@ import Users from "./pages/Users";
 import Account from "./pages/Account";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
+import "react-toastify/dist/ReactToastify.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Spinner from "./ui/Spinner.jsx";
-import { Toaster } from "react-hot-toast";
+import { ToastBar, Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -64,8 +65,8 @@ function App() {
               maxWidth: "500px",
               padding: "16px 24px",
               backgroundColor: "var(--color-grey-0)",
-              color: "var(--color-grey-700)"
-            }
+              color: "var(--color-grey-700)",
+            },
           }}
         />
       </QueryClientProvider>
