@@ -4,7 +4,7 @@ import Row from "../ui/Row";
 import CabinTable from "../features/cabins/CabinTable";
 import Button from "../ui/Button";
 import { useState } from "react";
-import CreateCabinForm from "../features/cabins/CreateCabinForm";
+import CreateCabinEditForm from "../features/cabins/CreateEditCabinForm";
 
 function Cabins() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -26,7 +26,7 @@ function Cabins() {
       </Row>
       {isFormOpen && (
         <Row type="vertical">
-          <CreateCabinForm />
+          <CreateCabinEditForm />
         </Row>
       )}
     </>

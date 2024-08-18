@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Row from "./Row";
 
 const StyledFormRow = styled.div`
   display: grid;
@@ -44,8 +45,10 @@ export default function FormRow({ label = "Form Label", children, error }) {
   return (
     <StyledFormRow>
       <Label htmlFor={children?.props?.id}>{label}</Label>
-      {children}
-      {error && <Error>{error}</Error>}
+      <Row type='vertical'>
+        {children}
+        {error && <Error>{error}</Error>}
+      </Row>
     </StyledFormRow>
   );
 }

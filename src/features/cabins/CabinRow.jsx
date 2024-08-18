@@ -4,6 +4,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCabin } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import toast from "react-hot-toast";
+import { useState } from "react";
+import CreateEditCabinForm from "./CreateEditCabinForm";
 
 const TableRow = styled.div`
   display: grid;
@@ -45,6 +47,7 @@ const Discount = styled.div`
 `;
 
 export default function CabinRow({ cabin }) {
+  const [isEdit, setisEdit] = useState(false);
   const queryClient = useQueryClient();
   const {
     isLoading: isDeleting,
@@ -56,7 +59,7 @@ export default function CabinRow({ cabin }) {
       queryClient.invalidateQueries({
         queryKey: ["cabins"],
       });
-      toast.success("Cabin has sucessfully been deleted")
+      toast.success("Cabin has sucessfully been deleted");
     },
     onError: (error) => toast.error("Error deleting Cabin"),
     // refetchInterval: 5000, // refetch after 5 seconds
@@ -72,13 +75,27 @@ export default function CabinRow({ cabin }) {
   const { name, id, image, price, maxCapacity, regularPrice, discount } = cabin;
   if (isDeleting) return <Spinner />;
   return (
-    <TableRow role="row">
-      <Img src={image} />
-      <Cabin>{name}</Cabin>
-      <div>Fits up to {maxCapacity} guests</div>
-      <Price>{formatCurrency(regularPrice)}</Price>
-      <Discount>{formatCurrency(discount)}</Discount>
-      <button onClick={handleDeleteCabin(id)}>Delete</button>
-    </TableRow>
+    <>
+      <TableRow role="row">
+        <Img src={image} />
+        <Cabin>{name}</Cabin>
+        <div>Fits up to {maxCapacity} guests</div>
+        <Price>{formatCurrency(regularPrice)}</Price>
+        <Discount>{formatCurrency(discount)}</Discount>
+        <div>
+          <button onClick={handleDeleteCabin(id)}>Delete</button>
+          <button
+            onClick={() => {
+              setisEdit((cur) => {
+                return !cur;
+              });
+            }}
+          >
+            Edit
+          </button>
+        </div>
+      </TableRow>
+      {isEdit && <CreateEditCabinForm initCabin={cabin} setIsEdit={setisEdit}/>}
+    </>
   );
 }
