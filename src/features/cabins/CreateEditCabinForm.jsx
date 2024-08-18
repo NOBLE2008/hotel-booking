@@ -11,6 +11,7 @@ import { createCabin } from "../../services/apiCabins";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import FormRow from "../../ui/FormRow";
 import Spinner from "../../ui/Spinner";
+import useCreateCabin from "./useCreateCabin";
 
 const StyledFormRow = styled.div`
   display: grid;
@@ -46,20 +47,8 @@ function CreateEditCabinForm({ initCabin = {}, setIsEdit }) {
     defaultValues: isEditSession ? editCabin : {},
   });
   const { errors, isSubmitting } = formState;
-  const queryClient = useQueryClient();
-  const { mutate: createMutate, isLoading: isCreating } = useMutation({
-    mutationFn: ({newCabin, id}) => createCabin(newCabin, id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-      toast.success("Cabin created successfully");
-      reset();
-    },
-    onError: (error) => {
-      toast.error("Failed to create cabin");
-    },
-  });
+  
+  const { createMutate, isCreating } = useCreateCabin()
 
   const { mutate: editMutate, isLoading: isEditing } = useMutation({
     mutationFn: ({newCabin, id}) => createCabin(newCabin, id),
