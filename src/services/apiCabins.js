@@ -35,6 +35,7 @@ export async function createCabin(cabin, id) {
     query = query.update({ ...cabin, image: imagePath }).eq("id", id);
     const { data, error } = await query;
     if (error) {
+      console.log(error)
       throw new Error("Cabin could not be created");
     }
     if (!hasUrl) {
@@ -48,9 +49,11 @@ export async function createCabin(cabin, id) {
     }
     return data;
   } else {
+    console.log(cabin)
     query = query.insert([{ ...cabin, image: imagePath }]).select();
     const { data, error } = await query;
     if (error) {
+      console.log(error)
       throw new Error("Cabin could not be created");
     }
     const { error: uploadError } = await supabase.storage

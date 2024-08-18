@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabin } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
-import toast from "react-hot-toast";
 import { useState } from "react";
 import CreateEditCabinForm from "./CreateEditCabinForm";
 import useDeleteCabin from "./useDeleteCabin";
+import { BsTrashFill } from "react-icons/bs";
+import { MdEdit } from "react-icons/md";
+import { FaCopy } from "react-icons/fa";
+import useCreateCabin from "./useCreateCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -36,6 +37,11 @@ const Cabin = styled.div`
   font-family: "Sono";
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 0.8rem;
+`;
+
 const Price = styled.div`
   font-family: "Sono";
   font-weight: 600;
@@ -50,7 +56,7 @@ const Discount = styled.div`
 export default function CabinRow({ cabin }) {
   const [isEdit, setisEdit] = useState(false);
 
-  const {isDeleting, mutate} = useDeleteCabin()
+  const { isDeleting, mutate } = useDeleteCabin();
   const handleDeleteCabin = (id) => {
     return () => {
       mutate(id);
@@ -58,8 +64,9 @@ export default function CabinRow({ cabin }) {
     // Delete cabin logic
   };
 
+  const { createMutate, isCreating } = useCreateCabin();
   const { name, id, image, price, maxCapacity, regularPrice, discount } = cabin;
-  if (isDeleting) return <Spinner />;
+  if (isDeleting || isCreating) return <Spinner />;
   return (
     <>
       <TableRow role="row">
@@ -67,10 +74,16 @@ export default function CabinRow({ cabin }) {
         <Cabin>{name}</Cabin>
         <div>Fits up to {maxCapacity} guests</div>
         <Price>{formatCurrency(regularPrice)}</Price>
-        {discount === 0 ? <span>&mdash;</span> : <Discount>{formatCurrency(discount)}</Discount>}
-        
-        <div>
-          <button onClick={handleDeleteCabin(id)}>Delete</button>
+        {discount === 0 ? (
+          <span>&mdash;</span>
+        ) : (
+          <Discount>{formatCurrency(discount)}</Discount>
+        )}
+
+        <ButtonContainer>
+          <button onClick={handleDeleteCabin(id)}>
+            <BsTrashFill />
+          </button>
           <button
             onClick={() => {
               setisEdit((cur) => {
@@ -78,11 +91,22 @@ export default function CabinRow({ cabin }) {
               });
             }}
           >
-            Edit
+            <MdEdit />
           </button>
-        </div>
+          <button
+            onClick={() => {
+              const data = { ...cabin };
+              delete data['id'];
+              createMutate({ newCabin: { ...data } });
+            }}
+          >
+            <FaCopy />
+          </button>
+        </ButtonContainer>
       </TableRow>
-      {isEdit && <CreateEditCabinForm initCabin={cabin} setIsEdit={setisEdit}/>}
+      {isEdit && (
+        <CreateEditCabinForm initCabin={cabin} setIsEdit={setisEdit} />
+      )}
     </>
   );
 }
