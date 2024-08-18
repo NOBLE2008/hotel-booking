@@ -55,7 +55,12 @@ function CreateEditCabinForm({ initCabin = {}, setIsEdit }) {
   const onSubmit = (data) => {
     const image = typeof data.image === "string" ? data.image : data.image[0];
     if (isEditSession) {
-      editMutate({ newCabin: { ...data, image: image }, id: editId });
+      editMutate({ newCabin: { ...data, image: image }, id: editId }, {
+        onSuccess: () => {
+          reset();
+          setIsEdit(false);
+        }
+      });
     } else {
       createMutate({ newCabin: { ...data, image: image }, id: editId });
     }
