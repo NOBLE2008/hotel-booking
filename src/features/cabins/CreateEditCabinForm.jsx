@@ -12,6 +12,7 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import FormRow from "../../ui/FormRow";
 import Spinner from "../../ui/Spinner";
 import useCreateCabin from "./useCreateCabin";
+import useEditCabin from "./useEditCabin";
 
 const StyledFormRow = styled.div`
   display: grid;
@@ -46,33 +47,18 @@ function CreateEditCabinForm({ initCabin = {}, setIsEdit }) {
   const { register, handleSubmit, reset, formState } = useForm({
     defaultValues: isEditSession ? editCabin : {},
   });
-  const { errors, isSubmitting } = formState;
-  
-  const { createMutate, isCreating } = useCreateCabin()
+  const { errors } = formState;
 
-  const { mutate: editMutate, isLoading: isEditing } = useMutation({
-    mutationFn: ({newCabin, id}) => createCabin(newCabin, id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["cabins"],
-      });
-      toast.success("Cabin edited successfully");
-      reset();
-      setIsEdit(false)
-    },
-    onError: (error) => {
-      toast.error("Failed to create cabin");
-    },
-  });
+  const { createMutate, isCreating } = useCreateCabin();
+  const { editMutate, isEditing } = useEditCabin();
 
   const onSubmit = (data) => {
     const image = typeof data.image === "string" ? data.image : data.image[0];
-    if(isEditSession){
+    if (isEditSession) {
       editMutate({ newCabin: { ...data, image: image }, id: editId });
-    }else{
+    } else {
       createMutate({ newCabin: { ...data, image: image }, id: editId });
     }
-    
   };
 
   if (isCreating || isEditing) {
