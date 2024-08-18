@@ -62,7 +62,11 @@ function CreateEditCabinForm({ initCabin = {}, setIsEdit }) {
         }
       });
     } else {
-      createMutate({ newCabin: { ...data, image: image }, id: editId });
+      createMutate({ newCabin: { ...data, image: image }, id: editId }, {
+        onSuccess: () => {
+          reset();
+        }
+      });
     }
   };
 
