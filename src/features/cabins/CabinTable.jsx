@@ -35,6 +35,7 @@ export default function CabinTable() {
   
   const {isLoading, cabins} = useCabin()
 
+  console.log(cabins)
   if (isLoading) {
     return <Spinner />;
   }
