@@ -8,12 +8,12 @@ export default function useUpdateSettings() {
     mutationFn: updateSettingApi,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["cabins"],
+        queryKey: ["settings"],
       });
-      toast.success("Cabin edited successfully");
+      toast.success("Setting updated successfully");
     },
     onError: (error) => {
-      toast.error("Failed to create cabin");
+      toast.error("Failed to update settings");
     },
   });
   return {updateSetting, isUpdating};

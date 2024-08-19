@@ -28,7 +28,10 @@ function UpdateSettingsForm() {
           id="min-nights"
           defaultValue={minBookingLength}
           onBlur={(e) => {
-            updateSetting({ ["minBookingLength"]: e.target.value });
+            if(Number(e.target.value) !== minBookingLength){
+              console.log(e.target.value, minBookingLength);
+              updateSetting({ ["minBookingLength"]: e.target.value });
+            }
           }}
           disabled={isUpdating}
         />
@@ -39,7 +42,9 @@ function UpdateSettingsForm() {
           id="max-nights"
           defaultValue={maxBookingLength}
           onBlur={(e) => {
-            updateSetting({ ["maxBookingLength"]: e.target.value });
+            if (Number(e.target.value) !== maxBookingLength) {
+              updateSetting({ ["maxBookingLength"]: e.target.value });
+            }
           }}
           disabled={isUpdating}
         />
@@ -50,7 +55,9 @@ function UpdateSettingsForm() {
           id="max-guests"
           defaultValue={maxGuestPerBooking}
           onBlur={(e) => {
-            updateSetting({ ["maxGuestPerBooking"]: e.target.value });
+            if (Number(e.target.value) !== maxGuestPerBooking) {
+              updateSetting({ ["maxGuestPerBooking"]: e.target.value });
+            }
           }}
           disabled={isUpdating}
         />
@@ -61,7 +68,9 @@ function UpdateSettingsForm() {
           id="breakfast-price"
           defaultValue={breakfastPrice}
           onBlur={(e) => {
-            updateSetting({ ["breakfastPrice"]: e.target.value });
+            if (Number(e.target.value) !== breakfastPrice) {
+              updateSetting({ ["breakfastPrice"]: e.target.value });
+            }
           }}
           disabled={isUpdating}
         />
