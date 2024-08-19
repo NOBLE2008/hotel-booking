@@ -64,7 +64,10 @@ export default function CabinRow({ cabin }) {
     // Delete cabin logic
   };
 
-  const { createMutate, isCreating } = useCreateCabin();
+  const { createMutate, isCreating } = useCreateCabin(
+    "Cabin duplicated sucessfully",
+    "Failed to duplicate cabin"
+  );
   const { name, id, image, price, maxCapacity, regularPrice, discount } = cabin;
   if (isDeleting || isCreating) return <Spinner />;
   return (
@@ -96,7 +99,7 @@ export default function CabinRow({ cabin }) {
           <button
             onClick={() => {
               const data = { ...cabin };
-              delete data['id'];
+              delete data["id"];
               createMutate({ newCabin: { ...data } });
             }}
           >

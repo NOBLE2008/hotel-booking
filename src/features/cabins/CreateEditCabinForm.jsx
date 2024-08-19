@@ -49,7 +49,7 @@ function CreateEditCabinForm({ initCabin = {}, setIsEdit }) {
   });
   const { errors } = formState;
 
-  const { createMutate, isCreating } = useCreateCabin();
+  const { createMutate, isCreating } = useCreateCabin('Cabin created sucessfully', 'Failed to create cabin');
   const { editMutate, isEditing } = useEditCabin();
 
   const onSubmit = (data) => {
