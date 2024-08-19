@@ -13,6 +13,8 @@ import FormRow from "../../ui/FormRow";
 import Spinner from "../../ui/Spinner";
 import useCreateCabin from "./useCreateCabin";
 import useEditCabin from "./useEditCabin";
+import { useContext } from "react";
+import { ModalContext } from "../../ui/Modal";
 
 const StyledFormRow = styled.div`
   display: grid;
@@ -42,6 +44,7 @@ const StyledFormRow = styled.div`
 `;
 
 function CreateEditCabinForm({ initCabin = {}, setIsEdit }) {
+  const { close } = useContext(ModalContext)
   const { id: editId, ...editCabin } = initCabin;
   const isEditSession = Boolean(editId);
   const { register, handleSubmit, reset, formState } = useForm({
@@ -65,6 +68,7 @@ function CreateEditCabinForm({ initCabin = {}, setIsEdit }) {
       createMutate({ newCabin: { ...data, image: image }, id: editId }, {
         onSuccess: () => {
           reset();
+          close?.();
         }
       });
     }
