@@ -1,9 +1,17 @@
-import { cloneElement, createContext, useContext, useState } from "react";
+import {
+  cloneElement,
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
+import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 
 const StyledModal = styled.div`
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -15,7 +23,7 @@ const StyledModal = styled.div`
 `;
 
 const Overlay = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -74,18 +82,20 @@ function Open({ children, open: windowOpenName }) {
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
 
+
   if (openName !== name) return null;
 
   return createPortal(
     <Overlay>
-      <StyledModal>
+      <StyledModal ref={ref}>
         <Button
           onClick={() => {
             close();
           }}
         >
-          <div>{children}</div>
+          <HiXMark />
         </Button>
+        <div>{children}</div>
       </StyledModal>
     </Overlay>,
     document.body

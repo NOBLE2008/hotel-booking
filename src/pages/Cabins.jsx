@@ -5,6 +5,7 @@ import CabinTable from "../features/cabins/CabinTable";
 import Button from "../ui/Button";
 import { useState } from "react";
 import CreateCabinEditForm from "../features/cabins/CreateEditCabinForm";
+import AddCabin from "../features/cabins/AddCabin";
 
 function Cabins() {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -18,17 +19,8 @@ function Cabins() {
         <CabinTable />
       </Row>
       <Row type="vertical">
-        <Button onClick={() => {
-          setIsFormOpen((cur) => {
-            return !cur
-          });
-        }} type="full">{isFormOpen ? "Cancel" : "Create new cabin"}</Button>
+        <AddCabin />
       </Row>
-      {isFormOpen && (
-        <Row type="vertical">
-          <CreateCabinEditForm />
-        </Row>
-      )}
     </>
   );
 }
