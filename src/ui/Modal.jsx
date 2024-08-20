@@ -82,23 +82,7 @@ function Open({ children, open: windowOpenName }) {
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
 
-  const ref = useRef();
-
-  useEffect(
-    function () {
-      function handleClick(e) {
-        if (ref.current && !ref.current.contains(e.target)) {
-          close();
-        }
-      }
-      document.addEventListener("click", handleClick, true);
-
-      return () => {
-        document.removeEventListener("click", handleClick, true);
-      };
-    },
-    [close]
-  );
+ 
   if (openName !== name) return null;
 
   return createPortal(
