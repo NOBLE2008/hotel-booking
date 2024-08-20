@@ -11,6 +11,7 @@ import useCreateCabin from "./useCreateCabin";
 import EditCabin from "./EditCabin";
 import DeleteCabin from "./DeleteCabin";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
 
 const Img = styled.img`
   display: block;
@@ -81,6 +82,20 @@ export default function CabinRow({ cabin }) {
             <FaCopy />
           </button>
         </ButtonContainer>
+        <Menus.Menu>
+          <Menus.Toggle id={id} />
+          <Menus.List id={id}>
+            <Menus.Button>
+
+            </Menus.Button>
+            <Menus.Button>
+
+            </Menus.Button>
+            <Menus.Button>
+              
+            </Menus.Button>
+          </Menus.List>
+        </Menus.Menu>
       </Table.Row>
     </>
   );
