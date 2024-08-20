@@ -9,6 +9,7 @@ import { MdEdit } from "react-icons/md";
 import { FaCopy } from "react-icons/fa";
 import useCreateCabin from "./useCreateCabin";
 import EditCabin from "./EditCabin";
+import DeleteCabin from "./DeleteCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -56,12 +57,6 @@ const Discount = styled.div`
 
 export default function CabinRow({ cabin }) {
   const { isDeleting, mutate } = useDeleteCabin();
-  const handleDeleteCabin = (id) => {
-    return () => {
-      mutate(id);
-    };
-    // Delete cabin logic
-  };
 
   const { createMutate, isCreating } = useCreateCabin(
     "Cabin duplicated sucessfully",
@@ -83,9 +78,7 @@ export default function CabinRow({ cabin }) {
         )}
 
         <ButtonContainer>
-          <button onClick={handleDeleteCabin(id)}>
-            <BsTrashFill />
-          </button>
+          <DeleteCabin id={id} name={name}/>
           <EditCabin>
             <CreateEditCabinForm initCabin={cabin} />
           </EditCabin>

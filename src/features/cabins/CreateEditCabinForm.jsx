@@ -43,7 +43,7 @@ const StyledFormRow = styled.div`
   }
 `;
 
-function CreateEditCabinForm({ initCabin = {}, setIsEdit }) {
+function CreateEditCabinForm({ initCabin = {} }) {
   const { close } = useContext(ModalContext)
   const { id: editId, ...editCabin } = initCabin;
   const isEditSession = Boolean(editId);
@@ -61,7 +61,7 @@ function CreateEditCabinForm({ initCabin = {}, setIsEdit }) {
       editMutate({ newCabin: { ...data, image: image }, id: editId }, {
         onSuccess: () => {
           reset();
-          setIsEdit(false);
+          close?.();
         }
       });
     } else {
