@@ -8,6 +8,7 @@ import { BsTrashFill } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
 import { FaCopy } from "react-icons/fa";
 import useCreateCabin from "./useCreateCabin";
+import EditCabin from "./EditCabin";
 
 const TableRow = styled.div`
   display: grid;
@@ -54,8 +55,6 @@ const Discount = styled.div`
 `;
 
 export default function CabinRow({ cabin }) {
-  const [isEdit, setisEdit] = useState(false);
-
   const { isDeleting, mutate } = useDeleteCabin();
   const handleDeleteCabin = (id) => {
     return () => {
@@ -87,15 +86,9 @@ export default function CabinRow({ cabin }) {
           <button onClick={handleDeleteCabin(id)}>
             <BsTrashFill />
           </button>
-          <button
-            onClick={() => {
-              setisEdit((cur) => {
-                return !cur;
-              });
-            }}
-          >
-            <MdEdit />
-          </button>
+          <EditCabin>
+            <CreateEditCabinForm initCabin={cabin} />
+          </EditCabin>
           <button
             onClick={() => {
               const data = { ...cabin };
@@ -107,9 +100,6 @@ export default function CabinRow({ cabin }) {
           </button>
         </ButtonContainer>
       </TableRow>
-      {isEdit && (
-        <CreateEditCabinForm initCabin={cabin} setIsEdit={setisEdit} />
-      )}
     </>
   );
 }
