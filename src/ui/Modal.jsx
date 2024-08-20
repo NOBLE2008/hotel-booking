@@ -9,6 +9,7 @@ import {
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
+import useCloseModal from "../hooks/useCloseModal";
 
 const StyledModal = styled.div`
   position: absolute;
@@ -82,7 +83,7 @@ function Open({ children, open: windowOpenName }) {
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
 
- 
+  const ref = useCloseModal(close);
   if (openName !== name) return null;
 
   return createPortal(
