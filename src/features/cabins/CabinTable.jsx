@@ -20,13 +20,13 @@ export default function CabinTable() {
   if (filterValue === "all") filteredCabins = cabins;
   if (filterValue === "discount")
     filteredCabins = cabins.filter((cabin) => {
-      return cabin.discount
+      return cabin.discount;
     });
-    if (filterValue === "no-discount")
-      filteredCabins = cabins.filter((cabin) => {
-        return !cabin.discount
-      });
-    console.log(filteredCabins);
+  if (filterValue === "no-discount")
+    filteredCabins = cabins.filter((cabin) => {
+      return !cabin.discount;
+    });
+  console.log(filteredCabins);
   return (
     <Table columns={"0.6fr 1.8fr 2.2fr 1fr 1fr 1fr"}>
       <Table.Header role="row">
