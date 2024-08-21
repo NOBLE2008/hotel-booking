@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const StyledFilter = styled.div`
@@ -35,11 +36,19 @@ const FilterButton = styled.button`
 `;
 
 export default function Filter() {
+  const [searchParam, setSearchParam] = useSearchParams()
+
+  const handleFilterClick = (filter) => {
+    return () => {
+      searchParam.set('discount', filter);
+      setSearchParam(searchParam)
+    }
+  };
   return (
     <StyledFilter>
-      <FilterButton>All</FilterButton>
-      <FilterButton>No discount</FilterButton>
-      <FilterButton>Discount</FilterButton>
+      <FilterButton onClick={handleFilterClick('all')}>All</FilterButton>
+      <FilterButton onClick={handleFilterClick('no-discount')}>No discount</FilterButton>
+      <FilterButton onClick={handleFilterClick('discount')}>Discount</FilterButton>
     </StyledFilter>
   );
 }
