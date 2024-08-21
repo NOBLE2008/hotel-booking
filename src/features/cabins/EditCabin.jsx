@@ -3,18 +3,21 @@ import Modal from "../../ui/Modal";
 import Button from "../../ui/Button";
 import styled from "styled-components";
 import { MdEdit } from "react-icons/md";
+import CreateEditCabinForm from "./CreateEditCabinForm";
 
-const UnStyledButton = styled.button``;
+const ButtonDiv = styled.div`
+  width: 100%;
+`;
 
-export default function EditCabin({ children }) {
+export default function EditCabin({ children, initCabin }) {
   return (
     <Modal>
       <Modal.Open open={"edit-cabin"}>
-        <UnStyledButton>
-          <MdEdit />
-        </UnStyledButton>
+        <ButtonDiv>{children}</ButtonDiv>
       </Modal.Open>
-      <Modal.Window name={"edit-cabin"}>{children}</Modal.Window>
+      <Modal.Window name={"edit-cabin"}>
+        <CreateEditCabinForm initCabin={initCabin} />
+      </Modal.Window>
     </Modal>
   );
 }

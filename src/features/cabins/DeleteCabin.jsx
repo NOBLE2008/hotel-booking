@@ -7,19 +7,20 @@ import { BsTrashFill } from "react-icons/bs";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import useDeleteCabin from "./useDeleteCabin";
 
-const UnStyledButton = styled.button``;
+const ButtonDiv = styled.div`
+    width: 100%;
+`
 
-export default function DeleteCabin({ id, name }) {
+export default function DeleteCabin({ id, name, children }) {
     const {isDeleting, mutate} = useDeleteCabin()
     const onDelete = () => {
         mutate(id)
     }
+    
   return (
     <Modal>
       <Modal.Open open={"delete-cabin"}>
-        <UnStyledButton>
-          <BsTrashFill />
-        </UnStyledButton>
+           <ButtonDiv>{children}</ButtonDiv>
       </Modal.Open>
       <Modal.Window name={"delete-cabin"}><ConfirmDelete disabled={isDeleting} onConfirm={onDelete} resourceName={`Cabin: ${name}`}/></Modal.Window>
     </Modal>

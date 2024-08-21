@@ -68,34 +68,36 @@ export default function CabinRow({ cabin }) {
         )}
 
         <ButtonContainer>
-          <DeleteCabin id={id} name={name} />
-          <EditCabin>
-            <CreateEditCabinForm initCabin={cabin} />
-          </EditCabin>
-          <button
-            onClick={() => {
-              const data = { ...cabin };
-              delete data["id"];
-              createMutate({ newCabin: { ...data } });
-            }}
-          >
-            <FaCopy />
-          </button>
+          <Menus>
+            <Menus.Menu>
+              <Menus.Toogle id={id} />
+              <Menus.List id={id}>
+                <DeleteCabin id={id} name={name}>
+                  <Menus.Button>
+                    <BsTrashFill /> Delete
+                  </Menus.Button>
+                </DeleteCabin>
+
+                <EditCabin initCabin={cabin}>
+                  <Menus.Button>
+                    <MdEdit /> Edit
+                  </Menus.Button>
+                </EditCabin>
+
+                <Menus.Button
+                  onClick={() => {
+                    const data = { ...cabin };
+                    delete data["id"];
+                    createMutate({ newCabin: { ...data } });
+                  }}
+                >
+                  <FaCopy />
+                  Duplicate
+                </Menus.Button>
+              </Menus.List>
+            </Menus.Menu>
+          </Menus>
         </ButtonContainer>
-        <Menus.Menu>
-          <Menus.Toggle id={id} />
-          <Menus.List id={id}>
-            <Menus.Button>
-
-            </Menus.Button>
-            <Menus.Button>
-
-            </Menus.Button>
-            <Menus.Button>
-              
-            </Menus.Button>
-          </Menus.List>
-        </Menus.Menu>
       </Table.Row>
     </>
   );
