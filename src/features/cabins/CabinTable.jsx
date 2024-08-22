@@ -28,7 +28,11 @@ export default function CabinTable() {
     filteredCabins = cabins.filter((cabin) => {
       return !cabin.discount;
     });
-  if (sortValue["name"] === 1) {
+  if (
+    sortValue["name"] === 1 ||
+    Object.keys(sortValue).length === 0 ||
+    Object.keys(sortValue).includes('no')
+  ) {
     filteredCabins.sort((a, b) => {
       return a.name.localeCompare(b.name);
     });
