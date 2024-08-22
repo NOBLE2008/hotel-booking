@@ -16,6 +16,8 @@ export default function CabinTable() {
   }
 
   const filterValue = searchParams.get("discount") || "all";
+
+  const sortValue = JSON.parse(searchParams.get("sort") || "{}");
   let filteredCabins;
   if (filterValue === "all") filteredCabins = cabins;
   if (filterValue === "discount")
@@ -26,6 +28,37 @@ export default function CabinTable() {
     filteredCabins = cabins.filter((cabin) => {
       return !cabin.discount;
     });
+  if (sortValue["name"] === 1) {
+    filteredCabins.sort((a, b) => {
+      return a.name.localeCompare(b.name);
+    });
+  }
+  if (sortValue["name"] === -1) {
+    filteredCabins.sort((a, b) => {
+      return b.name.localeCompare(a.name);
+    });
+  }
+  if (sortValue["regularPrice"] === -1) {
+    filteredCabins.sort((a, b) => {
+      return b.regularPrice - a.regularPrice;
+    });
+  }
+  if (sortValue["regularPrice"] === 1) {
+    filteredCabins.sort((a, b) => {
+      return a.regularPrice - b.regularPrice;
+    });
+  }
+  if (sortValue["maxCapacity"] === 1) {
+    filteredCabins.sort((a, b) => {
+      return a.maxCapacity - b.maxCapacity;
+    });
+  }
+  if (sortValue["maxCapacity"] === -1) {
+    filteredCabins.sort((a, b) => {
+      return b.maxCapacity - a.maxCapacity;
+    });
+  }
+
   console.log(filteredCabins);
   return (
     <Table columns={"0.6fr 1.8fr 2.2fr 1fr 1fr 1fr"}>
