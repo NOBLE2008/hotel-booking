@@ -10,7 +10,9 @@ import Spinner from "../ui/Spinner";
 function Bookings() {
   const { count, isLoading } = useBookings();
 
-
+    if (isLoading) {
+        return <Spinner />;
+    }
     return (
     <>
       <Row type="horizontal">
