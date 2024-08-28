@@ -6,6 +6,15 @@ import Table from "../../ui/Table";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
+import Menus from "../../ui/Menus";
+import { HiArrowDownOnSquare, HiEye, HiTrash } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { deleteBooking as deleteBookingApi } from "../../services/apiBookings";
+import toast from "react-hot-toast";
+import useDeleteBooking from "./useDeleteBooking";
+import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -54,6 +63,18 @@ function BookingRow({
     "checked-out": "silver",
   };
 
+  const { deleteBooking, isLoading: isDeleting } = useDeleteBooking();
+  const handleCheckin = () => {
+    // Logic to check in the booking
+    navigate(`/checkin/${bookingId}`);
+  };
+
+  const handleDelete = () => {
+    // Logic to delete the booking
+    deleteBooking(bookingId);
+  };
+
+  const navigate = useNavigate();
   return (
     <Table.Row>
       <Cabin>{cabinName}</Cabin>
@@ -79,6 +100,33 @@ function BookingRow({
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
+
+      <Menus.Menu>
+        <Menus.Toogle id={bookingId} />
+        <Menus.List id={bookingId}>
+          <Menus.Button onClick={() => navigate(`${bookingId}`)}>
+            <HiEye /> See details
+          </Menus.Button>
+          {status === "unconfirmed" && (
+            <Menus.Button onClick={handleCheckin}>
+              <HiArrowDownOnSquare /> Check in
+            </Menus.Button>
+          )}
+          <Modal>
+            <Modal.Open open={"confirm-delete"}>
+              <Menus.Button>
+                <HiTrash /> Delete
+              </Menus.Button>
+            </Modal.Open>
+            <Modal.Window name={"confirm-delete"}>
+              <ConfirmDelete
+                onConfirm={handleDelete}
+                resourceName={"booking"}
+              />
+            </Modal.Window>
+          </Modal>
+        </Menus.List>
+      </Menus.Menu>
     </Table.Row>
   );
 }

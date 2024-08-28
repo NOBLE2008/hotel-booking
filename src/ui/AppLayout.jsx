@@ -5,6 +5,8 @@ import Sidebar from "./Sidebar";
 import styled from "styled-components";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import Spinner from "./Spinner";
+import { useLogout } from "../features/authentication/useLogout";
 
 const Main = styled.main`
   background-color: var(--color-grey-50);
@@ -19,7 +21,16 @@ const StyledAppLayout = styled.div`
   height: 100vh;
 `;
 
+const FullPage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
 export default function AppLayout() {
+  const { isLoading: isLoggingOut } = useLogout();
+
   return (
     <>
       <StyledAppLayout>

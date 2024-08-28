@@ -5,15 +5,23 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
 import { useUpdateUser } from "./useUpdateUser";
+import Row from "../../ui/Row";
+import { useUpdatePassword } from "./useUpdatePassword";
+import SpinnerMini from "../../ui/SpinnerMini";
 
 function UpdatePasswordForm() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
   const { errors } = formState;
 
-  const { updateUser, isUpdating } = useUpdateUser();
+  const { updatePassword, isLoading: isUpdating } = useUpdatePassword();
 
   function onSubmit({ password }) {
-    updateUser({ password }, { onSuccess: reset });
+    updatePassword(password, {
+      onSuccess: () => {
+        // Reset form after successful password update
+        reset
+      },
+    });
   }
 
   return (
@@ -53,12 +61,12 @@ function UpdatePasswordForm() {
           })}
         />
       </FormRow>
-      <FormRow>
+      <Row type={'vertical'}>
         <Button onClick={reset} type="reset" variation="secondary">
           Cancel
         </Button>
-        <Button disabled={isUpdating}>Update password</Button>
-      </FormRow>
+        <Button disabled={isUpdating}>{isUpdating ? <SpinnerMini/>: "Update password"}</Button>
+      </Row>
     </Form>
   );
 }

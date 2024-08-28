@@ -12,8 +12,11 @@ import AppLayout from "./ui/AppLayout";
 import "react-toastify/dist/ReactToastify.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import Spinner from "./ui/Spinner.jsx";
-import { ToastBar, Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import Booking from "./pages/Booking.jsx";
+import Checkin from "./pages/Checkin.jsx";
+import ProtectedRoute from "./ui/ProtectedRoute.jsx";
+import DarkModeProvider from "./context/DarkModeContext.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,50 +29,60 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <GlobalStyles />
-        <BrowserRouter>
-          <Routes>
-            <Route element={<AppLayout />}>
+      <DarkModeProvider>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <GlobalStyles />
+          <BrowserRouter>
+            <Routes>
               <Route
-                index
-                element={<Navigate replace={true} to={"/dashboard"} />}
-                err
-              />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="bookings" element={<Bookings />} />
-              <Route path="cabins" element={<Cabins />} />
+                element={
+                  <ProtectedRoute>
+                    <AppLayout />
+                  </ProtectedRoute>
+                }
+              >
+                <Route
+                  index
+                  element={<Navigate replace={true} to={"/dashboard"} />}
+                />
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="bookings" element={<Bookings />} />
+                <Route path="bookings/:bookingId" element={<Booking />} />
+                <Route path="cabins" element={<Cabins />} />
+                <Route path="settings" element={<Settings />} />
+                <Route path="users" element={<Users />} />
+                <Route path="checkin/:bookingId" element={<Checkin />} />
+                <Route path="account" element={<Account />} />
+                <Route path="*" element={<PageNotFound />} />
+              </Route>
               <Route path="login" element={<Login />} />
-              <Route path="settings" element={<Settings />} />
-              <Route path="users" element={<Users />} />
-              <Route path="account" element={<Account />} />
               <Route path="*" element={<PageNotFound />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+            </Routes>
+          </BrowserRouter>
 
-        <Toaster
-          position="top-center"
-          gutter={12}
-          containerStyle={{ margin: "8px" }}
-          toastOptions={{
-            success: {
-              duration: 3000,
-            },
-            error: {
-              duration: 5000,
-            },
-            style: {
-              fontSize: "16px",
-              maxWidth: "500px",
-              padding: "16px 24px",
-              backgroundColor: "var(--color-grey-0)",
-              color: "var(--color-grey-700)",
-            },
-          }}
-        />
-      </QueryClientProvider>
+          <Toaster
+            position="top-center"
+            gutter={12}
+            containerStyle={{ margin: "8px" }}
+            toastOptions={{
+              success: {
+                duration: 3000,
+              },
+              error: {
+                duration: 5000,
+              },
+              style: {
+                fontSize: "16px",
+                maxWidth: "500px",
+                padding: "16px 24px",
+                backgroundColor: "var(--color-grey-0)",
+                color: "var(--color-grey-700)",
+              },
+            }}
+          />
+        </QueryClientProvider>
+      </DarkModeProvider>
     </>
   );
 }

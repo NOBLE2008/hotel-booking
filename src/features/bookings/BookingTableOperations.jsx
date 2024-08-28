@@ -1,17 +1,27 @@
 import SortBy from "../../ui/SortBy";
 import Filter from "../../ui/Filter";
 import TableOperations from "../../ui/TableOperations";
+import { useSearchParams } from "react-router-dom";
 
 function BookingTableOperations() {
+  const [ searchParam, setSearchParam ] = useSearchParams();
+  const currentFilter = searchParam.get("status");
+  const handleFilterClick = (filter) => {
+    return () => {
+      searchParam.set('status', filter);
+      searchParam.set('page', 1)
+      setSearchParam(searchParam);
+    };
+  };
   return (
     <TableOperations>
       <Filter
         filterField="status"
-        options={[
-          { value: "all", label: "All" },
-          { value: "checked-out", label: "Checked out" },
-          { value: "checked-in", label: "Checked in" },
-          { value: "unconfirmed", label: "Unconfirmed" },
+        buttons={[
+          { text: "All", active: currentFilter === 'all', click: handleFilterClick('all')},
+          { text: "Checked-out", active: currentFilter === 'checked-out', click: handleFilterClick('checked-out') },
+          { text: "Checked-in", active: currentFilter === 'checked-in', click: handleFilterClick('checked-in') },
+          { text: "Unconfirmed", active: currentFilter === 'unconfirmed', click: handleFilterClick('unconfirmed') },
         ]}
       />
 

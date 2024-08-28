@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\features",
+    "\\src\\features\\bookings",
+    "\\src\\features\\settings"
+  ],
+  "SelectedNode": "\\src\\features\\settings\\useSettings.js",
+  "PreviewInSolutionExplorer": false
+}
